@@ -1,3 +1,4 @@
 {
-    "db" : "media_db"
+    "db" : "media_db",
+    "jwtKey" : "social_jwtKey"
 }
