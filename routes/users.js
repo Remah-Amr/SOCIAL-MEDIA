@@ -4,6 +4,10 @@ const {User, validate} = require('../models/user');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 
+router.get('/me', async (req, res) => {
+    const user = await user.findById(req.user._id).select('-password');
+    res.send(user);
+})
 
 router.post('/register', async (req, res) => {
     const { error } = validate(req.body);
