@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const login = require('../middelware/login');
 
 router.get('/me', login, async (req, res) => {
-    const user = await user.findById(req.user._id).select('-password');
+    const user = await User.findById(req.user._id).select('-password');
     res.send(user);
 })
 
