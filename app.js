@@ -4,6 +4,7 @@ const app = express()
 require('express-async-errors');
 require('./startup/db')();
 require('./startup/routes')(app);
+require('./startup/config')();
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
