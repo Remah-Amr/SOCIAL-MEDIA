@@ -30,12 +30,12 @@ const postSchema = new Schema({
       },
       commentUser:{
         type: Schema.Types.ObjectId,
-        ref:'users'
+        ref:'User'
       }
     }],
     user:{
       type: Schema.Types.ObjectId,
-      ref:'users'
+      ref:'User'
     },
     date:{
       type: Date,

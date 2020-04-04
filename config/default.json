@@ -1,5 +1,5 @@
 {
-    "db": "mongodb://localhost/socialMedia",
-    "jwtKey" : "",
-    "mailPassword": ""
+    "db": "mongodb://remah:remah654312@ds263917.mlab.com:63917/social-media",
+    "jwtKey" : "remah",
+    "mailPassword": "Anaconda1"
 }
