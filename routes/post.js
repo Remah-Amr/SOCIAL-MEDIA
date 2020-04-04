@@ -62,7 +62,7 @@ router.put('/:id', (req, res) => { // i can put url same but method differnt , m
         } else {
           allowComments = false;
         }
-    
+      
       // New values
       post.title = req.body.title;
       post.body = req.body.body;
@@ -75,8 +75,8 @@ router.put('/:id', (req, res) => { // i can put url same but method differnt , m
         });
     }).catch(error => {
       res.status(400).json({error})
-    })
-  });
+    });
+});
 
 
 // DELETE post
