@@ -165,12 +165,12 @@ router.get('/admin/:id',isAdmin, async (req, res, next) => {
   const posts = await Post.find({ user: req.params.id }).populate('user')
   res.json({ posts, count: posts.length })
 })
-
+// An AJAX request is made to the server to increment the likes_count in the database by 1.
 router.post('/admin/:postID', isAdmin, async (req, res, next) => {
   const post = await Post.findOne({ _id: req.params.postID })
   post.allowComments = req.body.allowComments
   await post.save()
   res.json({ post })
 })
-
+// for full_EXAMPLE : https://pusher.com/tutorials/realtime-likes-nodejs
 module.exports = router
