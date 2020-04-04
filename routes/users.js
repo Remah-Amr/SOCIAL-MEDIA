@@ -101,7 +101,7 @@ router.get('/reset/:token', async (req, res) => {
     const user = await User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() }});
     if (!user) return res.status(400).send('Password reset token is invalid or has expired.');
 
-    res.redirect('/new-password');
+    res.render('reset', { token: req.params.token });
 });
 
 router.post('/reset/:token', async (req, res) => {
@@ -120,7 +120,15 @@ router.post('/reset/:token', async (req, res) => {
         return res.status(400).send("Passwords do not match.");
     } 
 
-    
+    transproter.sendMail({
+        to: req.body.email, // whitch enterd in form
+        from: 'socialmedianode1@gmail.com',
+        subject: 'Your password has been changed',
+        text: `Hello,
+          This is a confirmation that the password for your account ${user.email} has just been changed.`
+    });
+
+    res.status(200).send('Success! Your password has been changed.');
 });
 
 
