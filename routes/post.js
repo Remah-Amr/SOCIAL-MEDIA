@@ -107,7 +107,7 @@ router.get('/user/:userId',(req,res) => {
 // get my post 
 router.get('/my',(req,res) => {
     Post.find({
-      user : req.user.id
+      user : req.user._id
     }).populate('user')
     .then(posts => {
      res.json({post})
@@ -118,14 +118,16 @@ router.get('/my',(req,res) => {
   })
 
 // Add Commnt
-router.post('/comment/:id',(req,res) => {
+router.post('/comment/:id',login,(req,res) => {
     Post.findOne({
       _id : req.params.id
     }).then(post => {
+      console.log("enter")
+      console.log(req.user)
       // New Comments
       const newComment = {
         commentBody : req.body.commentBody, // name in form of input
-        commentUser : req.user.id
+        commentUser : req.user._id
       }
       // comments is an array in model like this = [ {},{},{} ]
       // Add to comment array in first
