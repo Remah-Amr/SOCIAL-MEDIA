@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
-const Post = mongoose.model('Post');
-const User = mongoose.model('User'); 
+const { Post } = require('../models/post');
+const { User } = require('../models/user');
+const login = require('../middelware/login');
 
 
 // Show Single POST
@@ -17,11 +17,11 @@ router.get('/show/:id', (req, res) => {
     }).catch(error => {
       res.status(400).json({error})
     })
-  });
+});
   
 
 // add post
-router.post('/',(req,res)=>{
+router.post('/', login, (req,res)=>{
     let allowComments;
     if(req.body.allowComments)
     {
@@ -30,13 +30,13 @@ router.post('/',(req,res)=>{
     else {
       allowComments = false;
     }
-  
+    
     const newPost = {
       title:req.body.title,
       status:req.body.status,
       allowComments : allowComments,
       body:req.body.body,
-      user:req.user.id,
+      user:req.user._id,
       likes : 0
     }
   
@@ -62,7 +62,7 @@ router.put('/:id', (req, res) => { // i can put url same but method differnt , m
         } else {
           allowComments = false;
         }
-    
+      
       // New values
       post.title = req.body.title;
       post.body = req.body.body;
@@ -75,8 +75,8 @@ router.put('/:id', (req, res) => { // i can put url same but method differnt , m
         });
     }).catch(error => {
       res.status(400).json({error})
-    })
-  });
+    });
+});
 
 
 // DELETE post
@@ -159,8 +159,5 @@ router.post('/like/:id',(req,res) => {
     })
   })
   
-  
-  
-  
-  
+
 module.exports = router

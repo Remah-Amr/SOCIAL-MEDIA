@@ -47,4 +47,7 @@ const postSchema = new Schema({
   });
 
 // Create collection and add schema
-mongoose.model('Post', postSchema); 
+const Post = mongoose.model('Post', postSchema); 
+
+
+exports.Post = Post;

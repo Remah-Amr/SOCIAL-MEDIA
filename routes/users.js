@@ -22,10 +22,10 @@ router.get('/me', login, async (req, res) => {
     res.send(user);
 });
 
-// router.get('/', async(req, res) => {
-//     const users = User.find().sort('name');
-//     res.send(users)
-// });
+router.get('/', async(req, res) => {
+    const users = await User.find().sort('name');
+    res.json(users)
+});
 
 router.post('/register', async (req, res) => {
     const { error } = validate(req.body);
@@ -43,7 +43,7 @@ router.post('/register', async (req, res) => {
     await user.save();
 
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['name', 'email']));
+    res.header('x-auth-token', token).json(_.pick(user, ['name', 'email']));
 });
 
 router.put('/', login, async (req, res) => {
