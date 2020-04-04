@@ -1,4 +1,5 @@
 {
     "db" : "media_db",
-    "jwtKey" : "social_jwtKey"
+    "jwtKey" : "social_jwtKey",
+    "mailPassword" : "media_mailPassword"
 }
