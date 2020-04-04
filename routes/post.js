@@ -6,7 +6,7 @@ const login = require('../middelware/login');
 
 
 // Show Single POST
-router.get('/show/:id', (req, res) => {
+router.get('/show/:id',login, (req, res) => {
     Post.findOne({
       _id: req.params.id
     })
@@ -50,7 +50,7 @@ router.post('/', login, (req,res)=>{
   
 
 // Edit post
-router.put('/:id', (req, res) => { // i can put url same but method differnt , mean i can put get and post with the same url
+router.put('/:id', login,(req, res) => { // i can put url same but method differnt , mean i can put get and post with the same url
     Post.findOne({ // because don't return array 'maybe'
       _id: req.params.id
     })
@@ -80,7 +80,7 @@ router.put('/:id', (req, res) => { // i can put url same but method differnt , m
 
 
 // DELETE post
-router.delete('/:id',(req,res)=>{
+router.delete('/:id',login,(req,res)=>{
     Post.deleteOne({_id : req.params.id})
      .then(()=>{
        res.status(204).json({msg:"successful"})
@@ -92,7 +92,7 @@ router.delete('/:id',(req,res)=>{
   
 
 // get posts from specific users
-router.get('/user/:userId',(req,res) => {
+router.get('/user/:userId',login,(req,res) => {
     Post.find({
       user : req.params.userId , status : 'public'
     }).populate('user')
@@ -105,7 +105,7 @@ router.get('/user/:userId',(req,res) => {
   })
 
 // get my post 
-router.get('/my',(req,res) => {
+router.get('/my',login,(req,res) => {
     Post.find({
       user : req.user._id
     }).populate('user')
@@ -145,7 +145,7 @@ router.post('/comment/:id',login,(req,res) => {
   
 
 // Add like
-router.post('/like/:id',(req,res) => {
+router.post('/like/:id',login,(req,res) => {
     Post.findOne({
       _id : req.params.id
     }).then(post => {
